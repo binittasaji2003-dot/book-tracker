@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="My Book Shelf - A modern, responsive personal reading tracker to organize books, update reading statuses, and track your library.">
+  <title>My Book Shelf - Personal Reading Tracker</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=2">
+</head>
+<body>
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <div class="app-wrapper">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="header-container">
+        <div class="brand-group">
+          <div class="brand-icon-wrapper" aria-hidden="true">
+            <svg class="brand-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+              <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              <path d="M12 6v6"></path>
+              <path d="M9 9h6"></path>
+            </svg>
+          </div>
+          <div class="brand-text">
+            <h1 class="app-title">My Book Shelf</h1>
+            <p class="app-subtitle">Track your reading journey, curate your library, and achieve your reading goals.</p>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Reading Statistics Dashboard -->
+    <section class="stats-section" aria-label="Reading Statistics">
+      <div class="stats-grid">
+        <div class="stat-card stat-total">
+          <div class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+              <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Total Books</span>
+            <span class="stat-value" id="stat-total" aria-live="polite">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-to-read">
+          <div class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <polyline points="12 6 12 12 16 14"></polyline>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">To read</span>
+            <span class="stat-value" id="stat-to-read" aria-live="polite">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-reading">
+          <div class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"></path>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Reading</span>
+            <span class="stat-value" id="stat-reading" aria-live="polite">0</span>
+          </div>
+        </div>
+
+        <div class="stat-card stat-finished">
+          <div class="stat-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+          <div class="stat-info">
+            <span class="stat-label">Finished</span>
+            <span class="stat-value" id="stat-finished" aria-live="polite">0</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content Area -->
+    <main id="main-content" class="main-layout">
+      <!-- Left Column: Add Book Form -->
+      <aside class="sidebar-area" aria-label="Add Book Section">
+        <section class="card form-card">
+          <div class="card-header">
+            <h2 class="card-title">Add a New Book</h2>
+            <p class="card-description">Record a book you plan to read, are currently reading, or finished.</p>
+          </div>
+
+          <form id="add-book-form" novalidate>
+            <!-- Title Field -->
+            <div class="form-group" id="group-book-title">
+              <label for="book-title" class="form-label">
+                Book Title <span class="required-asterisk" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="book-title"
+                name="title"
+                class="form-input"
+                placeholder="e.g., The Midnight Library"
+                autocomplete="off"
+                aria-required="true"
+                aria-describedby="title-error"
+              >
+              <p class="validation-message" id="title-error" role="alert" aria-live="polite"></p>
+            </div>
+
+            <!-- Author Field -->
+            <div class="form-group" id="group-book-author">
+              <label for="book-author" class="form-label">
+                Author <span class="required-asterisk" aria-hidden="true">*</span>
+              </label>
+              <input
+                type="text"
+                id="book-author"
+                name="author"
+                class="form-input"
+                placeholder="e.g., Matt Haig"
+                autocomplete="off"
+                aria-required="true"
+                aria-describedby="author-error"
+              >
+              <p class="validation-message" id="author-error" role="alert" aria-live="polite"></p>
+            </div>
+
+            <!-- Status Field -->
+            <div class="form-group">
+              <label for="book-status" class="form-label">Reading Status</label>
+              <div class="select-wrapper">
+                <select id="book-status" name="status" class="form-select">
+                  <option value="To read">To read</option>
+                  <option value="Reading">Reading</option>
+                  <option value="Finished">Finished</option>
+                </select>
+                <span class="select-arrow" aria-hidden="true">▾</span>
+              </div>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" id="add-book-btn" class="btn btn-primary btn-block">
+              <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              <span>Add to Shelf</span>
+            </button>
+          </form>
+        </section>
+      </aside>
+
+      <!-- Right Column: Search & Bookshelf Grid -->
+      <section class="shelf-area" aria-label="Book Collection">
+        <!-- Search and Filter Bar -->
+        <div class="toolbar-card">
+          <div class="search-box">
+            <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input
+              type="text"
+              id="search-input"
+              class="search-input"
+              placeholder="Search books by title or author..."
+              aria-label="Search books by title or author"
+              autocomplete="off"
+            >
+            <button type="button" id="search-clear-btn" class="search-clear-btn" aria-label="Clear search query" hidden>
+              &times;
+            </button>
+          </div>
+          <div class="shelf-meta" id="shelf-meta" aria-live="polite">
+            <!-- Dynamic count summary e.g., "Showing 5 books" -->
+          </div>
+        </div>
+
+        <!-- Book List Container -->
+        <div id="book-list" class="book-grid" role="list" aria-label="Books in shelf">
+          <!-- Dynamically populated via app.js -->
+        </div>
+
+        <!-- Empty State Container (displayed when shelf is empty or search yields no matches) -->
+        <div id="empty-state" class="empty-state-card" hidden>
+          <div class="empty-icon-wrapper" id="empty-icon-wrapper" aria-hidden="true">
+            <!-- Dynamic SVG icon -->
+          </div>
+          <h3 class="empty-title" id="empty-title">Your bookshelf is empty</h3>
+          <p class="empty-message" id="empty-message">Start by adding your first book using the form.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Delete Confirmation Modal Dialog -->
+    <div id="delete-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-describedby="modal-desc" hidden>
+      <div class="modal-card">
+        <div class="modal-header">
+          <div class="modal-alert-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              <line x1="10" y1="11" x2="10" y2="17"></line>
+              <line x1="14" y1="11" x2="14" y2="17"></line>
+            </svg>
+          </div>
+          <h2 id="modal-title" class="modal-title">Delete Book</h2>
+        </div>
+        <p id="modal-desc" class="modal-desc">
+          Are you sure you want to delete <strong id="modal-book-title" class="modal-highlight">this book</strong>? This action cannot be undone.
+        </p>
+        <div class="modal-actions">
+          <button type="button" id="modal-cancel-btn" class="btn btn-secondary">Cancel</button>
+          <button type="button" id="modal-confirm-btn" class="btn btn-danger">Delete Book</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Live Toast / Notification Container for screen readers & visual confirmation -->
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
+
